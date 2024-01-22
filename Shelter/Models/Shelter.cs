@@ -1,6 +1,6 @@
 ﻿namespace Shelter.Models
 {
-    public class Shelter
+    public class PetShelter
     {
         public int Id { get; set; }
         public string Addres { get; set; }

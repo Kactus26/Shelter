@@ -10,6 +10,6 @@
         public string Breed { get; set; }
         public DateOnly DateOfTaking { get; set; }
         public Owner Owner { get; set; }
-        public Shelter Shelter { get; set; }
+        public PetShelter PetShelter { get; set; }
     }
 }

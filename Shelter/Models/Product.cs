@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public float Value { get; set; }
-        public ICollection<Shelter> Shelters { get; set;}
+        public ICollection<PetShelter> PetShelters { get; set;}
     }
 }

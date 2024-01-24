@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shelter.Data;
+using Shelter.Interfaces;
+using Shelter.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<Seed>();
+builder.Services.AddScoped<IOwner, OwnerRepository>();
+builder.Services.AddScoped<IPet, PetRepository>();
+builder.Services.AddScoped<IProduct, ProductRepository>();
+builder.Services.AddScoped<IShelter, ShelterRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

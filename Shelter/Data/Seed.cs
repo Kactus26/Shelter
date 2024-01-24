@@ -12,15 +12,26 @@ namespace Shelter.Data
         }
         public void SeedDataContext()
         {
+            if (dataContext.PetShelters.Any())
+            {
+                dataContext.PetShelters.RemoveRange(dataContext.PetShelters);
+                dataContext.SaveChanges();
+            }
+
             if (!dataContext.PetShelters.Any())
             {
                 var petShelter = new PetShelter()
                 {
                     Addres = "test"
                 };
+                var petShelter2 = new PetShelter()
+                {
+                    Addres = "test"
+                };
                 dataContext.PetShelters.Add(petShelter);
+                dataContext.PetShelters.Add(petShelter2);
                 dataContext.SaveChanges();
-            } 
+            }
         }
     }
 }

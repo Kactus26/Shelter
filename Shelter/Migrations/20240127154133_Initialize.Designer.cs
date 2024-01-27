@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shelter.Data;
 
@@ -11,9 +12,11 @@ using Shelter.Data;
 namespace Shelter.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240127154133_Initialize")]
+    partial class Initialize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,7 +80,7 @@ namespace Shelter.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("DateOfTaking")
+                    b.Property<DateOnly>("DateOfTaking")
                         .HasColumnType("date");
 
                     b.Property<string>("Gender")
@@ -92,10 +95,10 @@ namespace Shelter.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PetShelterId")
+                    b.Property<int>("PetShelterId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -167,11 +170,15 @@ namespace Shelter.Migrations
                 {
                     b.HasOne("Shelter.Models.Owner", "Owner")
                         .WithMany("Pets")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Shelter.Models.PetShelter", "PetShelter")
                         .WithMany("Pets")
-                        .HasForeignKey("PetShelterId");
+                        .HasForeignKey("PetShelterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
 

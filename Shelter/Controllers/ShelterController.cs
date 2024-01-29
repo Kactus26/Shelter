@@ -33,8 +33,8 @@ namespace Shelter.Controllers
             if(await _shelterRepository.ShelterExists(shelterAddres))
                 return NotFound("Shelter with this addres do not exists");
 
-            ICollection<Pet> PetsCollection = await _shelterRepository.PetsInShelter(shelterAddres);
-            
+            ICollection<PetDTO> PetsCollection = await _shelterRepository.PetsInShelter(shelterAddres);
+
             if (PetsCollection == null)
                 return NotFound("No animals found");
 
@@ -47,7 +47,7 @@ namespace Shelter.Controllers
             if (await _shelterRepository.ShelterExists(shelterAddres))
                 return NotFound("Shelter with this addres do not exists");
 
-            ICollection<Product> ProductCollection = await _shelterRepository.ProductsInShelter(shelterAddres);
+            ICollection<ProductsDTO> ProductCollection = _mapper.Map<ICollection<ProductsDTO>>(await _shelterRepository.ProductsInShelter(shelterAddres));
 
             if (ProductCollection == null)
                 return NotFound("No products found");

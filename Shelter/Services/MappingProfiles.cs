@@ -9,7 +9,8 @@ namespace Shelter.Services
         public MappingProfiles()
         {
             CreateMap<Models.PetShelter, PetShelterDTO>();
-
+            CreateMap<Models.Pet, PetDTO>();
+            CreateMap<Models.Product, ProductsDTO>();
         }
     }
 }

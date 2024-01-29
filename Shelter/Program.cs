@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Shelter.Data;
 using Shelter.Interfaces;
 using Shelter.Repository;
+using Shelter.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddScoped<IOwner, OwnerRepository>();
 builder.Services.AddScoped<IPet, PetRepository>();
 builder.Services.AddScoped<IProduct, ProductRepository>();
 builder.Services.AddScoped<IPetShelter, PetShelterRepository>();
+builder.Services.AddAutoMapper(typeof(MappingProfiles)); 
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

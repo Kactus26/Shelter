@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Shelter.DTO;
 using Shelter.Interfaces;
+using Shelter.Migrations;
 using Shelter.Models;
 
 namespace Shelter.Controllers
@@ -9,16 +12,19 @@ namespace Shelter.Controllers
     public class ShelterController : Controller
     {
         private readonly IPetShelter _shelterRepository;
-        public ShelterController(IPetShelter shelter)
+        private readonly IMapper _mapper;
+        public ShelterController(IPetShelter shelter, IMapper mapper)
         {
             _shelterRepository = shelter;
+            _mapper = mapper;
         }
 
-        [HttpGet("GetAllPets")]
+        [HttpGet("GetAllPetShelters")]
         public async Task<IActionResult> GetPetShelters() 
         {
-            ICollection<PetShelter> PetsSheltersCollection = await _shelterRepository.PetShelters();
-            return Ok(PetsSheltersCollection);
+            ICollection<Models.PetShelter> PetsSheltersCollection = await _shelterRepository.PetShelters();
+            ICollection<PetShelterDTO> DTOs = _mapper.Map<List<PetShelterDTO>>(PetsSheltersCollection);
+            return Ok(DTOs);
         }
 
         [HttpGet("PetsInShelter")]

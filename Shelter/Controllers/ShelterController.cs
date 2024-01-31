@@ -27,13 +27,13 @@ namespace Shelter.Controllers
             return Ok(DTOs);
         }
 
-        [HttpGet("PetsInShelter")]
-        public async Task<IActionResult> GetPetsInShelter(string shelterAddres)
+        [HttpGet("GetPetsInShelter")]
+        public async Task<IActionResult> GetPetsInShelter(string shelterAddress)
         {
-            if(await _shelterRepository.ShelterExists(shelterAddres))
-                return NotFound("Shelter with this addres do not exists");
+            if(await _shelterRepository.ShelterExists(shelterAddress))
+                return NotFound("Shelter with this address do not exists");
 
-            ICollection<PetDTO> PetsCollection = await _shelterRepository.PetsInShelter(shelterAddres);
+            ICollection<PetDTO> PetsCollection = await _shelterRepository.PetsInShelter(shelterAddress);
 
             if (PetsCollection == null)
                 return NotFound("No animals found");
@@ -42,12 +42,12 @@ namespace Shelter.Controllers
         }
 
         [HttpGet("ProductsInShelter")]
-        public async Task<IActionResult> GetProductsInShelter(string shelterAddres)
+        public async Task<IActionResult> GetProductsInShelter(string shelterAddress)
         {
-            if (await _shelterRepository.ShelterExists(shelterAddres))
-                return NotFound("Shelter with this addres do not exists");
+            if (await _shelterRepository.ShelterExists(shelterAddress))
+                return NotFound("Shelter with this address do not exists");
 
-            ICollection<ProductsDTO> ProductCollection = _mapper.Map<ICollection<ProductsDTO>>(await _shelterRepository.ProductsInShelter(shelterAddres));
+            ICollection<ProductsDTO> ProductCollection = _mapper.Map<ICollection<ProductsDTO>>(await _shelterRepository.ProductsInShelter(shelterAddress));
 
             if (ProductCollection == null)
                 return NotFound("No products found");

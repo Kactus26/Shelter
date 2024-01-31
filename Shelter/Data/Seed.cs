@@ -22,21 +22,21 @@ namespace Shelter.Data
 
             if (!dataContext.PetShelters.Any())
             {
-                Owner twoPetsOwner = new Owner { Name = "Yurik", SurName = "Bury", Addres = "9 Willow Avenue" };
+                Owner twoPetsOwner = new Owner { Name = "Yurik", SurName = "Bury", Address = "9 Willow Avenue" };
                 Product twoSheltersProducts = new Product { Name = "Cat house", Description = "Big fun house for your little friend", Value = 125.99F };
 
                 var PetShelters = new List<PetShelter>()
                 {
                     new PetShelter()
                     {
-                        Addres = "ul. Berserka 35",
+                        Address = "ul. Berserka 35",
                         Pets = new List<Pet>
                         {
                             new Pet { Name = "Aki", Age = 2, Gender = 'M', KindOfAnimal = "Dog", Breed = "Haski"},
-                            new Pet { Name = "Miku", Age = 1, Gender = 'F', KindOfAnimal = "Cat", Breed = "British",
-                                Owner = new Owner{ Name = "Alex", SurName = "Baginsky", Addres = "13 Maple Street"}},
-                            new Pet { Name = "Pirozok", Age = 0, Gender = 'M', KindOfAnimal = "Hamster", Breed = "Jungaryk",
-                                Owner = new Owner{ Name = "Yaroslav", SurName = "Yanovich", Addres = "21 Pine Road"}}
+                            new Pet { Name = "Miku", Age = 1, Gender = 'F', KindOfAnimal = "Cat", Breed = "British", DateOfTaking = new DateOnly(2024,01,01),
+                                Owner = new Owner{ Name = "Alex", SurName = "Baginsky", Address = "13 Maple Street"}},
+                            new Pet { Name = "Pirozok", Age = 0, Gender = 'M', KindOfAnimal = "Hamster", Breed = "Jungaryk", DateOfTaking = new DateOnly(2023,03,28),
+                                Owner = new Owner{ Name = "Yaroslav", SurName = "Yanovich", Address = "21 Pine Road"}}
                         },
                         Products = new List<Product>()
                         {
@@ -46,12 +46,14 @@ namespace Shelter.Data
                     },
                     new PetShelter()
                     {
-                        Addres = "ul. Mrkanova 2",
+                        Address = "ul. Mrkanova 2",
                         Pets = new List<Pet>
                         {
                             new Pet { Name = "Bella", Age = 3, Gender = 'F', KindOfAnimal = "Dog", Breed = "Labrador"},
-                            new Pet { Name = "Whiskers", Age = 2, Gender = 'M', KindOfAnimal = "Cat", Breed = "Siamese", Owner = twoPetsOwner},
-                            new Pet { Name = "Nibbles", Age = 1, Gender = 'M', KindOfAnimal = "Hamster", Breed = "Syrian", Owner = twoPetsOwner}
+                            new Pet { Name = "Whiskers", Age = 2, Gender = 'M', KindOfAnimal = "Cat", Breed = "Siamese",
+                                DateOfTaking = new DateOnly(2023,10,15), Owner = twoPetsOwner},
+                            new Pet { Name = "Nibbles", Age = 1, Gender = 'M', KindOfAnimal = "Hamster", Breed = "Syrian",
+                                DateOfTaking = new DateOnly(2023,10,15), Owner = twoPetsOwner}
                         },
                         Products = new List<Product>()
                         {

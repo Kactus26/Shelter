@@ -19,24 +19,24 @@ namespace Shelter.Repository
             return await _context.PetShelters.ToListAsync();
         }
 
-        public async Task<bool> ShelterExists(string addres)
+        public async Task<bool> ShelterExists(string address)
         {
-            PetShelter shelter = await _context.PetShelters.Where(x=>x.Addres == addres).FirstOrDefaultAsync();
+            PetShelter shelter = await _context.PetShelters.Where(x=>x.Address == address).FirstOrDefaultAsync();
             if (shelter == null)
                 return true;
             else
                 return false;
         }
 
-        public async Task<ICollection<Product>> ProductsInShelter(string addres)
+        public async Task<ICollection<Product>> ProductsInShelter(string address)
         {
-            PetShelter petShelter = await _context.PetShelters.Include(shelter => shelter.Products).Where(x => x.Addres == addres).FirstOrDefaultAsync();
+            PetShelter petShelter = await _context.PetShelters.Include(shelter => shelter.Products).Where(x => x.Address == address).FirstOrDefaultAsync();
             return petShelter.Products;
         }
 
-        public async Task<ICollection<PetDTO>> PetsInShelter(string addres)
+        public async Task<ICollection<PetDTO>> PetsInShelter(string address)
         {
-            ICollection<PetDTO> pet = await _context.Pets.Include(pet => pet.Owner).Where(x => x.PetShelter.Addres == addres)
+            ICollection<PetDTO> pets = await _context.Pets.Include(pet => pet.Owner).Where(x => x.PetShelter.Address == address)
             .Select(x => new PetDTO
             {
                 Id = x.Id,
@@ -49,12 +49,12 @@ namespace Shelter.Repository
                 OwnerId = x.Owner.Id,
                 OwnerName = x.Owner.Name,
                 OwnerSurName = x.Owner.SurName,
-                OwnerAddres = x.Owner.Addres,
+                OwnerAddress = x.Owner.Address,
                 PetShelterId = x.PetShelter.Id,
-                PetShelterAddres = x.PetShelter.Addres
+                PetShelterAddress = x.PetShelter.Address
             }).ToListAsync();
 
-            return pet;
+            return pets;
         }
     }
 }

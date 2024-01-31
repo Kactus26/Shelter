@@ -11,6 +11,8 @@ namespace Shelter.Services
             CreateMap<Models.PetShelter, PetShelterDTO>();
             CreateMap<Models.Pet, PetDTO>();
             CreateMap<Models.Product, ProductsDTO>();
+            CreateMap<Models.Pet, PetWhithPetShelterDTO>(); 
+            CreateMap<Models.Pet, PetWhithOwnerAndShelterDTO>();
         }
     }
 }

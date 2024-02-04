@@ -1,4 +1,5 @@
-﻿using Shelter.DTO;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Shelter.DTO;
 using Shelter.Models;
 
 namespace Shelter.Interfaces
@@ -11,6 +12,5 @@ namespace Shelter.Interfaces
         Task<ICollection<PetDTO>> GetPetsWithKind(string kindOfAnimal);
         Task<ICollection<PetDTO>> GetAllPets();
         Task<bool> ShelterExists(string address);
-
     }
 }

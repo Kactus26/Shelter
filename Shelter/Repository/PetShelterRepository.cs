@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shelter.Data;
 using Shelter.DTO;
 using Shelter.Interfaces;
@@ -17,6 +18,11 @@ namespace Shelter.Repository
         public async Task<ICollection<PetShelter>> PetShelters()
         {
             return await _context.PetShelters.ToListAsync();
+        }
+
+        public async Task<PetShelter> GetShelterByAddress(string address)
+        {
+            return _context.PetShelters.FirstOrDefault(x => x.Address == address);
         }
 
         public async Task<bool> ShelterExists(string address)
@@ -55,6 +61,18 @@ namespace Shelter.Repository
             }).ToListAsync();
 
             return pets;
+        }
+
+        public ValueTask<EntityEntry<Pet>> AddPet(Pet pet)
+        {
+            PetShelter petShelter = _context.PetShelters.FirstOrDefault(x => x.Address == pet.PetShelter.Address);
+            petShelter.Pets.Add(pet);
+            return _context.Pets.AddAsync(pet);
+        }
+
+        public Task SaveChanges()
+        {
+            return _context.SaveChangesAsync();
         }
     }
 }

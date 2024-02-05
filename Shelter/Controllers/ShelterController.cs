@@ -75,7 +75,6 @@ namespace Shelter.Controllers
 
             await _shelterRepository.AddPet(pet);
             await _shelterRepository.SaveChanges();
-            //Адрес куда добавить
             return Ok("Data added successfully");
         }
     }

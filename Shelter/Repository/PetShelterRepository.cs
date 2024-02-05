@@ -64,9 +64,7 @@ namespace Shelter.Repository
         }
 
         public ValueTask<EntityEntry<Pet>> AddPet(Pet pet)
-        {
-            PetShelter petShelter = _context.PetShelters.FirstOrDefault(x => x.Address == pet.PetShelter.Address);
-            petShelter.Pets.Add(pet);
+        {;
             return _context.Pets.AddAsync(pet);
         }
 

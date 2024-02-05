@@ -11,6 +11,7 @@ namespace Shelter.Interfaces
         Task<ICollection<PetDTO>> PetsInShelter(string address);
         Task<ICollection<Product>> ProductsInShelter(string address);
         ValueTask<EntityEntry<Pet>> AddPet(Pet pet);
+        ValueTask<EntityEntry<PetShelter>> AddPetShelter(PetShelter pet);
         Task<bool> ShelterExists(string address);
         Task SaveChanges();
     }

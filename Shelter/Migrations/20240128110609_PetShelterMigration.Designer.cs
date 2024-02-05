@@ -13,7 +13,7 @@ namespace Shelter.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20240128110609_PetShelter")]
-    partial class PetShelter
+    partial class PetShelterMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

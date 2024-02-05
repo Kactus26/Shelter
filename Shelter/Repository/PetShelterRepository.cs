@@ -64,8 +64,13 @@ namespace Shelter.Repository
         }
 
         public ValueTask<EntityEntry<Pet>> AddPet(Pet pet)
-        {;
+        {
             return _context.Pets.AddAsync(pet);
+        }
+
+        public ValueTask<EntityEntry<PetShelter>> AddPetShelter(PetShelter petShelter)
+        {
+            return _context.PetShelters.AddAsync(petShelter);
         }
 
         public Task SaveChanges()

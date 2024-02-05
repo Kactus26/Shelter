@@ -55,13 +55,13 @@ namespace Shelter.Controllers
             return Ok(ProductCollection);
         }
 
-        [HttpPost]
+        [HttpPost("AddPetToShelter")]
         public async Task<IActionResult> AddPetToShelter(string name, int age, char gender, string kind, string breed, string shelterAddress)
         {
             if (await _shelterRepository.ShelterExists(shelterAddress))
                 BadRequest("No shelters with this address");
 
-            Models.PetShelter petShelter = await _shelterRepository.GetShelterByAddress(shelterAddress);
+            PetShelter petShelter = await _shelterRepository.GetShelterByAddress(shelterAddress);
 
             Pet pet = new Pet()
             {
@@ -74,6 +74,19 @@ namespace Shelter.Controllers
             };
 
             await _shelterRepository.AddPet(pet);
+            await _shelterRepository.SaveChanges();
+            return Ok("Data added successfully");
+        }
+
+        [HttpPost("AddPetShelter")]
+        public async Task<IActionResult> AddPetShelter(string address)
+        {
+            PetShelter petShelter = new PetShelter
+            {
+                Address = address
+            };
+
+            await _shelterRepository.AddPetShelter(petShelter);
             await _shelterRepository.SaveChanges();
             return Ok("Data added successfully");
         }

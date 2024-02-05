@@ -5,7 +5,7 @@
 namespace Shelter.Migrations
 {
     /// <inheritdoc />
-    public partial class PetShelter : Migration
+    public partial class PetShelterMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

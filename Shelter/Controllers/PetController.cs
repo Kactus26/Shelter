@@ -76,5 +76,24 @@ namespace Shelter.Controllers
             else
                 return NotFound("No pets of such kind");
         }
+
+        [HttpPost("AddPet")]
+        public async Task<IActionResult> AddPet(string name, int age, char gender, string kind, string breed, string shelterAddress)
+        {
+            Pet pet = new Pet
+            {
+                Name = name,
+                Age = age,
+                Gender = gender,
+                KindOfAnimal = kind,
+                Breed = breed,
+                PetShelter = await _petRepository.GetShelterByAddress(shelterAddress)
+            };
+
+            await _petRepository.AddPet(pet);
+            await _petRepository.SaveChanges();
+            return Ok("Data added successfully");
+
+        }
     }
 }

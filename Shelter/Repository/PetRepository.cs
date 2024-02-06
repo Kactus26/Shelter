@@ -80,5 +80,20 @@ namespace Shelter.Repository
                 PetShelterAddress = x.PetShelter.Address
             }).ToListAsync();
         }
+
+        public async Task<PetShelter> GetShelterByAddress(string shelterAddress)
+        {
+            return await _context.PetShelters.FirstOrDefaultAsync(x => x.Address == shelterAddress);
+        }
+
+        public async ValueTask<EntityEntry<Pet>> AddPet(Pet pet)
+        {
+            return await _context.Pets.AddAsync(pet);
+        }
+
+        public Task SaveChanges()
+        {
+            return _context.SaveChangesAsync();
+        }
     }
 }

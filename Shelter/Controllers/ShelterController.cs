@@ -55,7 +55,7 @@ namespace Shelter.Controllers
             return Ok(ProductCollection);
         }
 
-        [HttpPost("AddPetToShelter")]
+        /*[HttpPost("AddPetToShelter")] Переделать в Update на MovePetToAnotherShelter
         public async Task<IActionResult> AddPetToShelter(string name, int age, char gender, string kind, string breed, string shelterAddress)
         {
             if (await _shelterRepository.ShelterExists(shelterAddress))
@@ -71,7 +71,7 @@ namespace Shelter.Controllers
                 KindOfAnimal = kind,
                 Breed = breed,
                 PetShelter = petShelter
-            };
+            };*/
 
             await _shelterRepository.AddPet(pet);
             await _shelterRepository.SaveChanges();

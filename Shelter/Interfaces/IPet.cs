@@ -11,6 +11,7 @@ namespace Shelter.Interfaces
         Task<ICollection<Pet>> GetPetsWithBreed(string breed);
         Task<ICollection<PetDTO>> GetPetsWithKind(string kindOfAnimal);
         Task<PetShelter> GetShelterByAddress(string shelterAddress);
+        Task<int> UpdatePetName(string oldName, string newName);
         ValueTask<EntityEntry<Pet>> AddPet(Pet pet);
         Task<ICollection<PetDTO>> GetAllPets();
         Task<bool> ShelterExists(string address);

@@ -71,13 +71,13 @@ namespace Shelter.Controllers
                 KindOfAnimal = kind,
                 Breed = breed,
                 PetShelter = petShelter
-            };*/
+            };
 
             await _shelterRepository.AddPet(pet);
             await _shelterRepository.SaveChanges();
             return Ok("Data added successfully");
         }
-
+*/
         [HttpPost("AddPetShelter")]
         public async Task<IActionResult> AddPetShelter(string address)
         {

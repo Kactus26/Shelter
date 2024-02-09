@@ -86,14 +86,20 @@ namespace Shelter.Repository
             return await _context.PetShelters.FirstOrDefaultAsync(x => x.Address == shelterAddress);
         }
 
-        public async ValueTask<EntityEntry<Pet>> AddPet(Pet pet)
+        public async Task<int> UpdatePetName(string oldName, string newName)
         {
-            return await _context.Pets.AddAsync(pet);
+            return await _context.Pets.Where(x=>x.Name==oldName).ExecuteUpdateAsync(x => x.SetProperty(c => c.Name, newName));
+        }
+
+        public ValueTask<EntityEntry<Pet>> AddPet(Pet pet)
+        {
+            return _context.Pets.AddAsync(pet);
         }
 
         public Task SaveChanges()
         {
             return _context.SaveChangesAsync();
         }
+
     }
 }

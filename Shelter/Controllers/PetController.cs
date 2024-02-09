@@ -80,6 +80,9 @@ namespace Shelter.Controllers
         [HttpPost("AddPet")]
         public async Task<IActionResult> AddPet(string name, int age, char gender, string kind, string breed, string shelterAddress)
         {
+            if (await _petRepository.ShelterExists(shelterAddress))
+                return BadRequest("Shelter with that address dosen't exist");
+
             Pet pet = new Pet
             {
                 Name = name,
@@ -93,7 +96,13 @@ namespace Shelter.Controllers
             await _petRepository.AddPet(pet);
             await _petRepository.SaveChanges();
             return Ok("Data added successfully");
+        }
 
+        [HttpPut("UpdatePetName")]
+        public async Task<IActionResult> UpdatePetName(string oldName, string newName)
+        {
+            var a = await _petRepository.UpdatePetName(oldName, newName);
+            return Ok(a);
         }
     }
 }

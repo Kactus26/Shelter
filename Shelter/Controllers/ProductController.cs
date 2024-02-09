@@ -30,9 +30,9 @@ namespace Shelter.Controllers
         }
 
         [HttpPost("AddProductToShelter")]
-        public async Task<IActionResult> AddProductToShelter(string productName, string shelterAddress)
+        public async Task<IActionResult> AddProductToShelter(int productId, int shelterId)
         {
-            await _productRepository.AddProductToShelter(productName, shelterAddress);
+            await _productRepository.AddProductToShelter(productId, shelterId);
             await _productRepository.SaveChanges();
             return Ok("Data added successfully");
         }

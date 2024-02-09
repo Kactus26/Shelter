@@ -42,17 +42,17 @@ namespace Shelter.Controllers
         }
 
         [HttpGet("GetPetsInShelterWithoutOwner")]
-        public async Task<IActionResult> GetPetsInShelterWithoutOwner(string shelterAddress)
+        public async Task<IActionResult> GetPetsInShelterWithoutOwner(int shelterId)
         {
-            if (await _petRepository.ShelterExists(shelterAddress))
-                return NotFound("Shelter with this address do not exists");
+            if (await _petRepository.ShelterExists(shelterId))
+                return NotFound("Shelter with this id do not exists");
 
-            ICollection<PetWhithPetShelterDTO> pets = _mapper.Map<ICollection<PetWhithPetShelterDTO>>(await _petRepository.GetShelterPetsWithoutOwner(shelterAddress));
+            ICollection<PetWhithPetShelterDTO> pets = _mapper.Map<ICollection<PetWhithPetShelterDTO>>(await _petRepository.GetShelterPetsWithoutOwner(shelterId));
 
             if (pets != null)
                 return Ok(pets);
             else
-                return NotFound("No pets in this sheler without owners");
+                return NotFound("No pets in this shelter without owners");
         }
 
         [HttpGet("GetAllPetsByBreed")]
@@ -78,10 +78,10 @@ namespace Shelter.Controllers
         }
 
         [HttpPost("AddPet")]
-        public async Task<IActionResult> AddPet(string name, int age, char gender, string kind, string breed, string shelterAddress)
+        public async Task<IActionResult> AddPet(string name, int age, char gender, string kind, string breed, int shelterId)
         {
-            if (await _petRepository.ShelterExists(shelterAddress))
-                return BadRequest("Shelter with that address dosen't exist");
+            if (await _petRepository.ShelterExists(shelterId))
+                return BadRequest("Shelter with that id dosen't exist");
 
             Pet pet = new Pet
             {
@@ -90,7 +90,7 @@ namespace Shelter.Controllers
                 Gender = gender,
                 KindOfAnimal = kind,
                 Breed = breed,
-                PetShelter = await _petRepository.GetShelterByAddress(shelterAddress)
+                PetShelter = await _petRepository.GetShelterById(shelterId)
             };
 
             await _petRepository.AddPet(pet);
@@ -99,9 +99,9 @@ namespace Shelter.Controllers
         }
 
         [HttpPut("UpdatePetName")]
-        public async Task<IActionResult> UpdatePetName(string oldName, string newName)
+        public async Task<IActionResult> UpdatePetName(int petId, string newName)
         {
-            var a = await _petRepository.UpdatePetName(oldName, newName);
+            var a = await _petRepository.UpdatePetName(petId, newName);
             return Ok(a);
         }
     }

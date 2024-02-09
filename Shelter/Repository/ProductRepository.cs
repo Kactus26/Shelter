@@ -13,10 +13,10 @@ namespace Shelter.Repository
         {
             _context = context;
         }
-        public async Task AddProductToShelter(string productName, string shelterAddress)
+        public async Task AddProductToShelter(int productId, int shelterId)
         {
-            Product product = await _context.Products.FirstOrDefaultAsync(x => x.Name == productName);
-            PetShelter test = await _context.PetShelters.Include(x=>x.Products).FirstOrDefaultAsync(x => x.Address == shelterAddress);
+            Product product = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId);
+            PetShelter test = await _context.PetShelters.Include(x=>x.Products).FirstOrDefaultAsync(x => x.Id == shelterId);
             test.Products.Add(product);
         }
 

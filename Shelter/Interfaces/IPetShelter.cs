@@ -8,11 +8,11 @@ namespace Shelter.Interfaces
     {
         Task<ICollection<PetShelter>> PetShelters();
         Task<PetShelter> GetShelterByAddress(string address);
-        Task<ICollection<PetDTO>> PetsInShelter(string address);
-        Task<ICollection<Product>> ProductsInShelter(string address);
+        Task<ICollection<PetDTO>> PetsInShelter(int shelterId);
+        Task<ICollection<Product>> ProductsInShelter(int shelterId);
         ValueTask<EntityEntry<Pet>> AddPet(Pet pet);
         ValueTask<EntityEntry<PetShelter>> AddPetShelter(PetShelter pet);
-        Task<bool> ShelterExists(string address);
+        Task<bool> ShelterExists(int shelterId);
         Task SaveChanges();
     }
 }

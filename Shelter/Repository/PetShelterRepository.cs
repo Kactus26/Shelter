@@ -25,24 +25,24 @@ namespace Shelter.Repository
             return _context.PetShelters.FirstOrDefault(x => x.Address == address);
         }
 
-        public async Task<bool> ShelterExists(string address)
+        public async Task<bool> ShelterExists(int shelterId)
         {
-            PetShelter shelter = await _context.PetShelters.Where(x=>x.Address == address).FirstOrDefaultAsync();
+            PetShelter shelter = await _context.PetShelters.Where(x=>x.Id == shelterId).FirstOrDefaultAsync();
             if (shelter == null)
                 return true;
             else
                 return false;
         }
 
-        public async Task<ICollection<Product>> ProductsInShelter(string address)
+        public async Task<ICollection<Product>> ProductsInShelter(int shelterId)
         {
-            PetShelter petShelter = await _context.PetShelters.Include(shelter => shelter.Products).Where(x => x.Address == address).FirstOrDefaultAsync();
+            PetShelter petShelter = await _context.PetShelters.Include(shelter => shelter.Products).Where(x => x.Id == shelterId).FirstOrDefaultAsync();
             return petShelter.Products;
         }
 
-        public async Task<ICollection<PetDTO>> PetsInShelter(string address)
+        public async Task<ICollection<PetDTO>> PetsInShelter(int shelterId)
         {
-            ICollection<PetDTO> pets = await _context.Pets.Include(pet => pet.Owner).Where(x => x.PetShelter.Address == address)
+            ICollection<PetDTO> pets = await _context.Pets.Include(pet => pet.Owner).Where(x => x.PetShelter.Id == shelterId)
             .Select(x => new PetDTO
             {
                 Id = x.Id,

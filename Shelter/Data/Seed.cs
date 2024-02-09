@@ -17,6 +17,7 @@ namespace Shelter.Data
                 dataContext.RemoveRange(dataContext.Owners);
                 dataContext.RemoveRange(dataContext.Pets);
                 dataContext.RemoveRange(dataContext.PetShelters);
+                dataContext.RemoveRange(dataContext.Products);
                 dataContext.SaveChanges();
             }
 

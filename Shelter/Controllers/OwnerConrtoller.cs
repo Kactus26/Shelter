@@ -22,12 +22,12 @@ namespace Shelter.Controllers
         }
 
         [HttpPost("AddOwner")]
-        public async Task<IActionResult> AddOwner(string name, string surname, string address, string petName)
+        public async Task<IActionResult> AddOwner(string name, string surname, string address, int petId)
         {
-            if (await _ownerRepository.PetHasOwner(petName))
+            if (await _ownerRepository.PetHasOwner(petId))
                 return BadRequest("Pet is alrety taken");
 
-            Pet pet = await _ownerRepository.GetPetByName(petName);
+            Pet pet = await _ownerRepository.GetPetById(petId);
             pet.DateOfTaking = DateOnly.FromDateTime(DateTime.Now);
 
             Owner owner = new Owner
@@ -44,13 +44,13 @@ namespace Shelter.Controllers
         }
 
         [HttpPost("AddPetToOwner")]
-        public async Task<IActionResult> AddPetToOwner(string ownerName, string petName) 
+        public async Task<IActionResult> AddPetToOwner(int ownerId, int petId) 
         {
-            Owner owner = await _ownerRepository.GetOwner(ownerName);
-            Pet pet = await _ownerRepository.GetPet(petName);
+            Owner owner = await _ownerRepository.GetOwner(ownerId);
+            Pet pet = await _ownerRepository.GetPet(petId);
 
             if (owner == null || pet == null || pet.Owner != null)
-                return BadRequest("Owner or pet with this name don't exist");
+                return BadRequest("Owner or pet with this id don't exist");
 
             owner.Pets.Add(pet);
 

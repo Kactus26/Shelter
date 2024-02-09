@@ -7,7 +7,7 @@ namespace Shelter.Interfaces
     public interface IProduct
     {
         ValueTask<EntityEntry<Product>> AddProduct(Product product);
-        Task AddProductToShelter(string productName, string shelterAddress);
+        Task AddProductToShelter(int productId, int shelterId);
         Task SaveChanges();
     }
 }

@@ -15,9 +15,9 @@ namespace Shelter.Repository
             _context = context;
         }
 
-        public async Task<bool> ShelterExists(string address)
+        public async Task<bool> ShelterExists(int shelterId)
         {
-            PetShelter shelter = await _context.PetShelters.Where(x => x.Address == address).FirstOrDefaultAsync();
+            PetShelter shelter = await _context.PetShelters.Where(x => x.Id == shelterId).FirstOrDefaultAsync();
             if (shelter == null)
                 return true;
             else
@@ -50,9 +50,9 @@ namespace Shelter.Repository
             return await _context.Pets.Where(pet => pet.Owner == null).Include(pet => pet.PetShelter).ToListAsync();
         }
         
-        public async Task<ICollection<Pet>> GetShelterPetsWithoutOwner(string address)
+        public async Task<ICollection<Pet>> GetShelterPetsWithoutOwner(int shelterId)
         {
-            return await _context.Pets.Where(pet => pet.Owner == null && pet.PetShelter.Address == address).ToListAsync();
+            return await _context.Pets.Where(pet => pet.Owner == null && pet.PetShelter.Id == shelterId).ToListAsync();
         }
 
         public async Task<ICollection<Pet>> GetPetsWithBreed(string breed)
@@ -81,14 +81,14 @@ namespace Shelter.Repository
             }).ToListAsync();
         }
 
-        public async Task<PetShelter> GetShelterByAddress(string shelterAddress)
+        public async Task<PetShelter> GetShelterById(int shelterId)
         {
-            return await _context.PetShelters.FirstOrDefaultAsync(x => x.Address == shelterAddress);
+            return await _context.PetShelters.FirstOrDefaultAsync(x => x.Id == shelterId);
         }
 
-        public async Task<int> UpdatePetName(string oldName, string newName)
+        public async Task<int> UpdatePetName(int petId, string newName)
         {
-            return await _context.Pets.Where(x=>x.Name==oldName).ExecuteUpdateAsync(x => x.SetProperty(c => c.Name, newName));
+            return await _context.Pets.Where(x=>x.Id==petId).ExecuteUpdateAsync(x => x.SetProperty(c => c.Name, newName));
         }
 
         public ValueTask<EntityEntry<Pet>> AddPet(Pet pet)

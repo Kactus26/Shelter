@@ -7,11 +7,11 @@ namespace Shelter.Interfaces
     public interface IOwner
     {
         Task SaveChanges();
-        Task<Pet> GetPetByName(string petName);
+        Task<Pet> GetPetById(int petId);
         Task<ICollection<Owner>> GetOwners();
-        Task<bool> PetHasOwner(string petName);
-        Task<Owner> GetOwner(string name);
-        Task<Pet> GetPet(string name);
+        Task<bool> PetHasOwner(int petId);
+        Task<Owner> GetOwner(int ownerId);
+        Task<Pet> GetPet(int petId);
         ValueTask<EntityEntry<Owner>> AddOwner(Owner owner);
     }
 }

@@ -7,14 +7,14 @@ namespace Shelter.Interfaces
     public interface IPet
     {
         Task<ICollection<Pet>> GetPetsWithoutOwner();
-        Task<ICollection<Pet>> GetShelterPetsWithoutOwner(string address);
+        Task<ICollection<Pet>> GetShelterPetsWithoutOwner(int shelterId);
         Task<ICollection<Pet>> GetPetsWithBreed(string breed);
         Task<ICollection<PetDTO>> GetPetsWithKind(string kindOfAnimal);
-        Task<PetShelter> GetShelterByAddress(string shelterAddress);
-        Task<int> UpdatePetName(string oldName, string newName);
+        Task<PetShelter> GetShelterById(int shelterId);
+        Task<int> UpdatePetName(int petId, string newName);
         ValueTask<EntityEntry<Pet>> AddPet(Pet pet);
         Task<ICollection<PetDTO>> GetAllPets();
-        Task<bool> ShelterExists(string address);
+        Task<bool> ShelterExists(int shelterId);
         Task SaveChanges();
     }
 }

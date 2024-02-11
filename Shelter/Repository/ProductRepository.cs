@@ -13,6 +13,12 @@ namespace Shelter.Repository
         {
             _context = context;
         }
+
+        public async Task<ICollection<Product>> GetAllProduct()
+        {
+            return await _context.Products.ToListAsync();
+        }
+
         public async Task AddProductToShelter(int productId, int shelterId)
         {
             Product product = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId);

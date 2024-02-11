@@ -14,6 +14,7 @@ namespace Shelter.Interfaces
         Task<int> UpdatePetName(int petId, string newName);
         ValueTask<EntityEntry<Pet>> AddPet(Pet pet);
         Task<ICollection<PetDTO>> GetAllPets();
+        Task<bool> PetExists(int petId);
         Task<bool> ShelterExists(int shelterId);
         Task SaveChanges();
     }

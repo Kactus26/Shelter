@@ -46,11 +46,11 @@ namespace Shelter.Controllers
         [HttpPost("AddPetToOwner")]
         public async Task<IActionResult> AddPetToOwner(int ownerId, int petId) 
         {
-            Owner owner = await _ownerRepository.GetOwner(ownerId);
+            Owner owner = await _ownerRepository.GetOwnerById(ownerId);
             Pet pet = await _ownerRepository.GetPet(petId);
 
             if (owner == null || pet == null || pet.Owner != null)
-                return BadRequest("Owner or pet with this id don't exist");
+                return BadRequest("Owner or pet with this id doesn't exist");
 
             owner.Pets.Add(pet);
 
@@ -58,5 +58,17 @@ namespace Shelter.Controllers
             return Ok("Data added successfully");
         }
 
+        [HttpPut("UpdateOwnerAddress")]
+        public async Task<IActionResult> UpdateOwnerAddress(int ownerId, string newAddress)
+        {
+            Owner owner = await _ownerRepository.GetOwnerById(ownerId);
+            if (owner==null)
+                return BadRequest("Owner with such id doesn't exist");
+
+            owner.Address = newAddress;
+            await _ownerRepository.SaveChanges();
+            return Ok("Data changed successfully");
+
+        }
     }
 }

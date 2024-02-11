@@ -37,7 +37,7 @@ namespace Shelter.Repository
             else
                 return false;
         }
-        public async Task<Owner> GetOwner(int ownerId)
+        public async Task<Owner> GetOwnerById(int ownerId)
         {
             return await _context.Owners.Include(x=>x.Pets).Where(x => x.Id == ownerId).FirstOrDefaultAsync();
         }

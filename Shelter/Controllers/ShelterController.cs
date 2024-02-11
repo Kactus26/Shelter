@@ -31,7 +31,7 @@ namespace Shelter.Controllers
         public async Task<IActionResult> GetPetsInShelter(int shelterId)
         {
             if(await _shelterRepository.ShelterExists(shelterId))
-                return NotFound("Shelter with this id do not exists");
+                return NotFound("Shelter with this id doesn't exist");
 
             ICollection<PetDTO> PetsCollection = await _shelterRepository.PetsInShelter(shelterId);
 
@@ -44,8 +44,8 @@ namespace Shelter.Controllers
         [HttpGet("ProductsInShelter")]
         public async Task<IActionResult> GetProductsInShelter(int shelterId)
         {
-            if (await _shelterRepository.ShelterExists(shelterAddress))
-                return NotFound("Shelter with this id do not exists");
+            if (await _shelterRepository.ShelterExists(shelterId))
+                return NotFound("Shelter with this id doesn't exist");
 
             ICollection<ProductsDTO> ProductCollection = _mapper.Map<ICollection<ProductsDTO>>(await _shelterRepository.ProductsInShelter(shelterId));
 
@@ -55,29 +55,6 @@ namespace Shelter.Controllers
             return Ok(ProductCollection);
         }
 
-        /*[HttpPost("AddPetToShelter")] Переделать в Update на MovePetToAnotherShelter
-        public async Task<IActionResult> AddPetToShelter(string name, int age, char gender, string kind, string breed, string shelterAddress)
-        {
-            if (await _shelterRepository.ShelterExists(shelterAddress))
-                BadRequest("No shelters with this address");
-
-            PetShelter petShelter = await _shelterRepository.GetShelterByAddress(shelterAddress);
-
-            Pet pet = new Pet()
-            {
-                Name = name,
-                Age = age,
-                Gender = gender,
-                KindOfAnimal = kind,
-                Breed = breed,
-                PetShelter = petShelter
-            };
-
-            await _shelterRepository.AddPet(pet);
-            await _shelterRepository.SaveChanges();
-            return Ok("Data added successfully");
-        }
-*/
         [HttpPost("AddPetShelter")]
         public async Task<IActionResult> AddPetShelter(string address)
         {
@@ -89,6 +66,22 @@ namespace Shelter.Controllers
             await _shelterRepository.AddPetShelter(petShelter);
             await _shelterRepository.SaveChanges();
             return Ok("Data added successfully");
+        }
+
+        [HttpPut("MovePet")]
+        public async Task<IActionResult> UpdateShelterForPet(int petId, int newShelterId)
+        {
+            PetShelter petShelter = await _shelterRepository.GetShelterById(newShelterId);
+            if (petShelter == null)
+                NotFound("Pet shelter with this id doesn't exist");
+
+            Pet pet = await _shelterRepository.GetPetById(petId);
+            if (pet == null)
+                NotFound("Pet with this id doesn't exist");
+
+            pet.PetShelter = petShelter;
+            await _shelterRepository.SaveChanges();
+            return Ok("Data changed successfully");
         }
     }
 }

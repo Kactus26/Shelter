@@ -20,9 +20,9 @@ namespace Shelter.Repository
             return await _context.PetShelters.ToListAsync();
         }
 
-        public async Task<PetShelter> GetShelterByAddress(string address)
+        public async Task<PetShelter> GetShelterById(int shelterId)
         {
-            return _context.PetShelters.FirstOrDefault(x => x.Address == address);
+            return await _context.PetShelters.FirstOrDefaultAsync(x => x.Id == shelterId);
         }
 
         public async Task<bool> ShelterExists(int shelterId)
@@ -71,6 +71,11 @@ namespace Shelter.Repository
         public ValueTask<EntityEntry<PetShelter>> AddPetShelter(PetShelter petShelter)
         {
             return _context.PetShelters.AddAsync(petShelter);
+        }
+
+        public async Task<Pet> GetPetById(int petId)
+        {
+            return await _context.Pets.FirstOrDefaultAsync(x => x.Id == petId);
         }
 
         public Task SaveChanges()

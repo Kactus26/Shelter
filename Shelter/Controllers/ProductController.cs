@@ -14,13 +14,21 @@ namespace Shelter.Controllers
             _productRepository = productRepository;
         }
 
+        [HttpGet("GetAllProducts")]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            ICollection<Product> product = await _productRepository.GetAllProduct();
+            return Ok(product);
+        }
+
         [HttpPost("AddProduct")]
-        public async Task<IActionResult> AddProduct(string name, string description, float value)
+        public async Task<IActionResult> AddProduct(string name, string description, string manufactorer, float value)
         {
             Product product = new Product
             {
                 Name = name,
                 Description = description,
+                Manufacturer = manufactorer,
                 Value = value
             };
 

@@ -45,7 +45,7 @@ namespace Shelter.Controllers
         public async Task<IActionResult> GetPetsInShelterWithoutOwner(int shelterId)
         {
             if (await _petRepository.ShelterExists(shelterId))
-                return NotFound("Shelter with this id do not exists");
+                return NotFound("Shelter with this id doesn't exist");
 
             ICollection<PetWhithPetShelterDTO> pets = _mapper.Map<ICollection<PetWhithPetShelterDTO>>(await _petRepository.GetShelterPetsWithoutOwner(shelterId));
 
@@ -81,7 +81,7 @@ namespace Shelter.Controllers
         public async Task<IActionResult> AddPet(string name, int age, char gender, string kind, string breed, int shelterId)
         {
             if (await _petRepository.ShelterExists(shelterId))
-                return BadRequest("Shelter with that id dosen't exist");
+                return BadRequest("Shelter with that id doesn't  exist");
 
             Pet pet = new Pet
             {
@@ -101,8 +101,11 @@ namespace Shelter.Controllers
         [HttpPut("UpdatePetName")]
         public async Task<IActionResult> UpdatePetName(int petId, string newName)
         {
-            var a = await _petRepository.UpdatePetName(petId, newName);
-            return Ok(a);
+            int tablesChanged = await _petRepository.UpdatePetName(petId, newName);
+            if (tablesChanged != 0)
+                return Ok("Data updated successfully");
+            else
+                return NotFound("Pet not found");
         }
     }
 }

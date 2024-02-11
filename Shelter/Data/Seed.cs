@@ -24,7 +24,7 @@ namespace Shelter.Data
             if (!dataContext.PetShelters.Any())
             {
                 Owner twoPetsOwner = new Owner { Name = "Yurik", SurName = "Bury", Address = "9 Willow Avenue" };
-                Product twoSheltersProducts = new Product { Name = "Cat house", Description = "Big fun house for your little friend", Value = 125.99F };
+                Product twoSheltersProducts = new Product { Name = "Cat house", Description = "Big fun house for your little friend", Manufacturer = "HousesCompany", Value = 125.99F };
 
                 var PetShelters = new List<PetShelter>()
                 {
@@ -41,7 +41,7 @@ namespace Shelter.Data
                         },
                         Products = new List<Product>()
                         {
-                            new Product { Name = "Cat food", Description = "Delicious dainty for kittys", Value = 2.59F},
+                            new Product { Name = "Cat food", Description = "Delicious dainty for kittys", Manufacturer = "Food & co", Value = 2.59F},
                             twoSheltersProducts
                         }
                     },
@@ -58,7 +58,7 @@ namespace Shelter.Data
                         },
                         Products = new List<Product>()
                         {
-                            new Product { Name = "Dog food", Description = "Delicious dainty for puppies", Value = 1.99F},
+                            new Product { Name = "Dog food", Description = "Delicious dainty for puppies", Manufacturer = "Food & co", Value = 1.99F},
                             twoSheltersProducts
                         }
                     }

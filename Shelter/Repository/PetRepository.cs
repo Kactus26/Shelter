@@ -88,7 +88,16 @@ namespace Shelter.Repository
 
         public async Task<int> UpdatePetName(int petId, string newName)
         {
-            return await _context.Pets.Where(x=>x.Id==petId).ExecuteUpdateAsync(x => x.SetProperty(c => c.Name, newName));
+            return await _context.Pets.Where(x => x.Id == petId).ExecuteUpdateAsync(x => x.SetProperty(c => c.Name, newName));
+        }
+
+        public async Task<bool> PetExists(int petId)
+        {
+            Pet pet = await _context.Pets.FirstOrDefaultAsync(x => x.Id == petId);
+            if (pet == null)
+                return true;
+            else 
+                return false;
         }
 
         public ValueTask<EntityEntry<Pet>> AddPet(Pet pet)

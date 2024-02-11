@@ -4,6 +4,7 @@ using Shelter.DTO;
 using Shelter.Interfaces;
 using Shelter.Migrations;
 using Shelter.Models;
+using Shelter.Repository;
 
 namespace Shelter.Controllers
 {
@@ -20,7 +21,7 @@ namespace Shelter.Controllers
         }
 
         [HttpGet("GetAllPetShelters")]
-        public async Task<IActionResult> GetPetShelters() 
+        public async Task<IActionResult> GetPetShelters()
         {
             ICollection<Models.PetShelter> PetsSheltersCollection = await _shelterRepository.PetShelters();
             ICollection<PetShelterDTO> DTOs = _mapper.Map<List<PetShelterDTO>>(PetsSheltersCollection);
@@ -30,7 +31,7 @@ namespace Shelter.Controllers
         [HttpGet("GetPetsInShelter")]
         public async Task<IActionResult> GetPetsInShelter(int shelterId)
         {
-            if(await _shelterRepository.ShelterExists(shelterId))
+            if (await _shelterRepository.ShelterExists(shelterId))
                 return NotFound("Shelter with this id doesn't exist");
 
             ICollection<PetDTO> PetsCollection = await _shelterRepository.PetsInShelter(shelterId);
@@ -83,5 +84,17 @@ namespace Shelter.Controllers
             await _shelterRepository.SaveChanges();
             return Ok("Data changed successfully");
         }
+
+        /*[HttpDelete("DeleteShelter")]
+        public async Task<IActionResult> DeleteShelter(int shelterId)
+        {
+            if (await _shelterRepository.GetShelterById(shelterId) == null)
+                return NotFound("Shelter not found");
+
+            await _shelterRepository.DeleteShelter(shelterId);
+            await _shelterRepository.SaveChanges();
+
+            return Ok("Data deleted successfully");
+        }*ErrorErrorErrorErrorErrorErrorErrorError/
     }
 }

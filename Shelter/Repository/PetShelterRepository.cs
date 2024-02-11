@@ -78,6 +78,11 @@ namespace Shelter.Repository
             return await _context.Pets.FirstOrDefaultAsync(x => x.Id == petId);
         }
 
+        public async Task<EntityEntry<PetShelter>> DeleteShelter(int shelterId)
+        {
+            return _context.PetShelters.Remove(await _context.PetShelters.FirstOrDefaultAsync(x=>x.Id==shelterId));
+        }
+
         public Task SaveChanges()
         {
             return _context.SaveChangesAsync();

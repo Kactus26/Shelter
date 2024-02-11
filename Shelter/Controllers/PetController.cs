@@ -107,5 +107,16 @@ namespace Shelter.Controllers
             else
                 return NotFound("Pet not found");
         }
+
+        [HttpDelete("DeletePet")]
+        public async Task<IActionResult> DeletePet(int petId)
+        {
+            if (await _petRepository.PetExists(petId))
+                return NotFound("Pet not found");
+
+            await _petRepository.DeletePet(petId);
+            await _petRepository.SaveChanges();
+            return Ok("Data deleted successfully");
+        }
     }
 }

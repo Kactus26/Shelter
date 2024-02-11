@@ -105,6 +105,11 @@ namespace Shelter.Repository
             return _context.Pets.AddAsync(pet);
         }
 
+        public async Task<EntityEntry<Pet>> DeletePet(int petId)
+        {
+            return _context.Pets.Remove(await _context.Pets.FirstOrDefaultAsync(x => x.Id == petId));
+        }
+
         public Task SaveChanges()
         {
             return _context.SaveChangesAsync();

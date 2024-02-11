@@ -25,10 +25,24 @@ namespace Shelter.Repository
             PetShelter test = await _context.PetShelters.Include(x=>x.Products).FirstOrDefaultAsync(x => x.Id == shelterId);
             test.Products.Add(product);
         }
+        public async Task<int> UpdateProductName(int productId, string newName)
+        {
+            return await _context.Products.Where(x => x.Id == productId).ExecuteUpdateAsync(x => x.SetProperty(c => c.Name, newName));
+        }
 
         public ValueTask<EntityEntry<Product>> AddProduct(Product product)
         {
             return _context.Products.AddAsync(product);
+        }
+
+        public async Task<Product> GetProductById(int productId)
+        {
+            return await _context.Products.Include(x=>x.PetShelters).FirstOrDefaultAsync(x => x.Id == productId);
+        }
+
+        public async Task<EntityEntry<Product>> DeleteProduct(int productId)
+        {
+            return _context.Products.Remove(await _context.Products.FirstOrDefaultAsync(x => x.Id == productId));
         }
 
         public Task SaveChanges()

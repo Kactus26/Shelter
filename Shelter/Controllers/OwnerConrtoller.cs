@@ -68,7 +68,34 @@ namespace Shelter.Controllers
             owner.Address = newAddress;
             await _ownerRepository.SaveChanges();
             return Ok("Data changed successfully");
-
         }
+
+        [HttpDelete("DeletePetFromOwner")]
+        public async Task<IActionResult> DeletePetFromOwner(int ownerId, int petId)
+        {
+            Owner owner = await _ownerRepository.GetOwnerById(ownerId);
+            if (owner == null)
+                return NotFound("Owner with such id doesn't exist");
+
+            if (!owner.Pets.Remove(owner.Pets.Where(x => x.Id == petId).FirstOrDefault()))
+                return NotFound("Pet with such id doesn't exist");
+            _ownerRepository.SaveChanges();
+
+            return Ok(owner.Pets);
+        }
+
+        [HttpDelete("DeleteOwner")]
+        public async Task<IActionResult> DeleteOwner(int ownerId)
+        {
+            Owner owner = await _ownerRepository.GetOwnerById(ownerId);
+            if(owner == null)
+                return NotFound("Owner with such id doesn't exist");
+
+            await _ownerRepository.DeleteOwner(ownerId);
+   
+            _ownerRepository.SaveChanges();
+            return Ok("Data deleted successfully");
+        }
+
     }
 }

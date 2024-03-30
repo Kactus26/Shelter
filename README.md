@@ -1,4 +1,4 @@
-![image](https://github.com/Kactus26/Shelter/assets/143936467/1726eee6-a3b4-445c-945e-04974fcca04e)Web API приложение, использующее Swagger, было создано для тренировки работы с обновлением базы данных через миграции в Entity Framework для SQL Server, в сочетании с паттерном Repository. Также здесь применяются AutoMapper для преобразования объектов, Dependency Injection, DTO и MVC.
+Web API приложение, использующее Swagger, было создано для тренировки работы с обновлением базы данных через миграции в Entity Framework для SQL Server, в сочетании с паттерном Repository. Также здесь применяются AutoMapper для преобразования объектов, Dependency Injection, DTO и MVC.
 
 При запуске изменить Connection String в AppSettings.json на актуальную строку подключения к бд.
 

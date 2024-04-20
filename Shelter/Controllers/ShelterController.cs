@@ -85,16 +85,6 @@ namespace Shelter.Controllers
             return Ok("Data changed successfully");
         }
 
-        /*[HttpDelete("DeleteShelter")]
-        public async Task<IActionResult> DeleteShelter(int shelterId)
-        {
-            if (await _shelterRepository.GetShelterById(shelterId) == null)
-                return NotFound("Shelter not found");
-
-            await _shelterRepository.DeleteShelter(shelterId);
-            await _shelterRepository.SaveChanges();
-
-            return Ok("Data deleted successfully");
-        }*ErrorErrorErrorErrorErrorErrorErrorError/
+       
     }
 }

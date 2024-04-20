@@ -12,7 +12,7 @@ ________________________________________________________________________________
 
 A Web API application utilizing Swagger was created for practicing database operations and updates through migrations in Entity Framework for SQL Server, in conjunction with the Repository Pattern. Made all CRUD operations and used all types of db tables connections. Additionally, it employs AutoMapper for object mapping, Dependency Injection, DTO, and MVC.
 
-After installing the repository, you will need Docker. Opoen it, than open the console and write in it
+After installing the repository, you will need Docker. Open it, than open the console and write in it
 
 ```
 docker-compose up --build
